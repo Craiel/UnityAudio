@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Audio
+﻿namespace Assets.Scripts.Craiel.Audio
 {
     public struct AudioPlayParameters
     {

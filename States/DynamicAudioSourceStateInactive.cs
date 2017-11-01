@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Audio.States
+﻿namespace Assets.Scripts.Craiel.Audio.States
 {
     using Audio;
 

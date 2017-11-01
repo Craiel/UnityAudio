@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Audio
+﻿namespace Assets.Scripts.Craiel.Audio
 {
     using Craiel.Essentials.Resource;
     using Craiel.GameData;
