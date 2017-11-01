@@ -4,7 +4,7 @@
     using Craiel.GameData;
     using Craiel.GDX.AI.Sharp.Contracts;
     using Craiel.GDX.AI.Sharp.FSM;
-    using Data.Runtime;
+    using Data;
     using Enums;
     using States;
     using UnityEngine;

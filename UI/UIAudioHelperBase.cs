@@ -1,8 +1,8 @@
 ﻿namespace Assets.Scripts.Craiel.Audio.UI.Utils
 {
-    using CoreGame;
     using Craiel.Audio;
     using Craiel.GameData;
+    using Essentials;
     using UnityEngine;
 
     public abstract class UIAudioHelperBase : MonoBehaviour
@@ -19,7 +19,7 @@
 
         public virtual void Awake()
         {
-            this.audioId = GameRuntimeData.Instance.GetRuntimeId(this.Audio);
+            this.audioId = AudioCore.GameDataRuntimeResolver.GetRuntimeId(this.Audio);
         }
 
         public virtual void OnDestroy()

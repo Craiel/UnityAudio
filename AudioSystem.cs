@@ -1,19 +1,16 @@
 ﻿namespace Assets.Scripts.Craiel.Audio
 {
     using System.Collections.Generic;
-    using CoreGame;
     using Craiel.Essentials;
     using Craiel.Essentials.Enums;
     using Craiel.Essentials.Resource;
     using Craiel.Essentials.Scene;
     using Craiel.GameData;
     using Data;
-    using Data.Runtime;
     using Enums;
     using NLog;
     using UnityEngine;
     using UnityEngine.Audio;
-    using EnumValues = Enums.EnumValues;
 
     public class AudioSystem : UnitySingletonBehavior<AudioSystem>
     {
@@ -63,7 +60,7 @@
             using (var resource = ResourceProvider.Instance.AcquireOrLoadResource<AudioMixer>(AssetResourceKeys.MasterMixerResourceKey))
             {
                 this.masterMixer = resource.Data;
-                foreach (AudioChannel channel in EnumValues.AudioChannelValues)
+                foreach (AudioChannel channel in AudioEnumValues.AudioChannelValues)
                 {
                     if (channel == AudioChannel.Unknown)
                     {
