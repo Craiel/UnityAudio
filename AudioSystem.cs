@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Craiel.Audio
+﻿using AudioMixerController = Craiel.Audio.AudioMixerController;
+
+namespace Assets.Scripts.Craiel.Audio
 {
     using System.Collections.Generic;
     using Craiel.Essentials;
@@ -8,6 +10,7 @@
     using Craiel.GameData;
     using Data;
     using Enums;
+    using Essentials.Event;
     using NLog;
     using UnityEngine;
     using UnityEngine.Audio;
@@ -16,19 +19,13 @@
     {
         private static readonly NLog.Logger Logger = LogManager.GetCurrentClassLogger();
 
-        private static uint nextTicketId = 1;
-
         private readonly DynamicAudioSourcePool dynamicAudioSourcePool;
-
-        private readonly IDictionary<AudioChannel, AudioMixerGroup> channelGroupLookup;
-
+        
         private readonly IDictionary<AudioTicket, DynamicAudioSource> activeSources;
         
         private readonly IDictionary<GameDataId, IList<AudioTicket>> sourcesByDataMap;
         
-        private AudioMixer masterMixer;
-
-        private SceneObjectRoot audioSourceRoot;
+        private AudioMixerController masterMixer;
         
         // -------------------------------------------------------------------
         // Constructor
@@ -36,7 +33,6 @@
         public AudioSystem()
         {
             this.dynamicAudioSourcePool = new DynamicAudioSourcePool();
-            this.channelGroupLookup = new Dictionary<AudioChannel, AudioMixerGroup>();
             this.activeSources = new Dictionary<AudioTicket, DynamicAudioSource>();
             this.sourcesByDataMap = new Dictionary<GameDataId, IList<AudioTicket>>();
         }
@@ -46,49 +42,21 @@
         // -------------------------------------------------------------------
         public override void Awake()
         {
-            this.RegisterInController(SceneObjectController.Instance, SceneRootCategory.System, true);
+            SceneObjectController.Instance.RegisterObjectAsRoot(SceneRootCategory.System, this.gameObject, true);
 
             base.Awake();
-
-            this.audioSourceRoot = SceneObjectController.Instance.AcquireRoot(SceneRootCategory.Dynamic, "DynamicAudioSource", true);
         }
 
         public override void Initialize()
         {
             base.Initialize();
 
-            using (var resource = ResourceProvider.Instance.AcquireOrLoadResource<AudioMixer>(AssetResourceKeys.MasterMixerResourceKey))
-            {
-                this.masterMixer = resource.Data;
-                foreach (AudioChannel channel in AudioEnumValues.AudioChannelValues)
-                {
-                    if (channel == AudioChannel.Unknown)
-                    {
-                        continue;
-                    }
+            this.masterMixer = new AudioMixerController(AudioCore.MasterMixerResource);
 
-                    AudioMixerGroup[] channelGroups = this.masterMixer.FindMatchingGroups(channel.ToString());
-                    if (channelGroups.Length != 1)
-                    {
-                        Logger.Error("Missing or ambiguous Sound Channel: {0}", channel);
-                        continue;
-                    }
-
-                    this.channelGroupLookup.Add(channel, channelGroups[0]);
-                }
-            }
-
-            using (var resource = ResourceProvider.Instance.AcquireOrLoadResource<GameObject>(AssetResourceKeys.DynamicAudioSourcePrefabResourceKey))
-            {
-                if (resource == null || resource.Data == null)
-                {
-                    Logger.Error("Missing Dynamic Audio Source Prefab: {0}", AssetResourceKeys.DynamicAudioSourcePrefabResourceKey);
-                    return;
-                }
-
-                this.dynamicAudioSourcePool.Initialize(resource.Data, this.UpdateAudioSource, this.audioSourceRoot.GetTransform());
-            }
+            this.dynamicAudioSourcePool.Initialize(AudioCore.DynamicAudioSourceResource, this.UpdateAudioSource);
             
+            AudioAreaSystem.InstantiateAndInitialize();
+
             Logger.Info("Audio Manager Initialized");
         }
 
@@ -99,33 +67,90 @@
 
         public AudioTicket Play(GameDataId id, AudioPlayParameters parameters = default (AudioPlayParameters))
         {
-            RuntimeAudioData entry = GameRuntimeData.Instance.Get<RuntimeAudioData>(id);
-            if (entry == null)
+            var entry = AudioCore.GameDataRuntimeResolver.Get<RuntimeAudioData>(id);
+            if (entry != null)
             {
-                Logger.Error("Could not play audio {0}, data not found", id);
-                return AudioTicket.Invalid;
+                DynamicAudioSource source = this.PrepareAudioSource(entry);
+                if (source == null)
+                {
+                    return AudioTicket.Invalid;
+                }
+
+                AudioMixerGroup group = this.masterMixer.GetChannel(entry.Channel);
+                if (group == null)
+                {
+                    Logger.Warn("Invalid audio channel in clip {0}: {1}", entry.Id, entry.Channel);
+                    return AudioTicket.Invalid;
+                }
+
+                var ticket = new AudioTicket();
+                source.Play(ticket, entry, false, group, parameters);
+
+                this.RegisterSource(ticket, source);
+                return ticket;
             }
 
-            DynamicAudioSource source = this.PrepareAudioSource(entry);
-            if (source == null)
-            {
-                return AudioTicket.Invalid;
-            }
-
-            AudioMixerGroup group;
-            if (!this.channelGroupLookup.TryGetValue(entry.Channel, out group))
-            {
-                Logger.Warn("Invalid audio channel in clip {0}: {1}", entry.Id, entry.Channel);
-                return AudioTicket.Invalid;
-            }
-
-            var ticket = new AudioTicket(nextTicketId++);
-            source.Play(ticket, entry, false, group, parameters);
-
-            this.RegisterSource(ticket, source);
-            return ticket;
+            return AudioTicket.Invalid;
         }
-        
+
+        public AudioTicket PlayAnchored(Transform anchorTransform, GameDataId id, AudioPlayParameters parameters = default(AudioPlayParameters))
+        {
+            var entry = AudioCore.GameDataRuntimeResolver.Get<RuntimeAudioData>(id);
+            if (entry != null)
+            {
+                DynamicAudioSource source = this.PrepareAudioSource(entry);
+                if (source == null)
+                {
+                    return AudioTicket.Invalid;
+                }
+
+                AudioMixerGroup channel = this.masterMixer.GetChannel(entry.Channel);
+                if (channel == null)
+                {
+                    Logger.Warn("Invalid audio channel in clip {0}: {1}", entry.Id, entry.Channel);
+                    return AudioTicket.Invalid;
+                }
+
+                var ticket = new AudioTicket();
+                source.SetAnchor(anchorTransform);
+                source.Play(ticket, entry, true, channel, parameters);
+
+                this.RegisterSource(ticket, source);
+                return ticket;
+            }
+
+            return AudioTicket.Invalid;
+        }
+
+        public AudioTicket PlayStationary(Vector3 position, GameDataId id, AudioPlayParameters parameters = default(AudioPlayParameters))
+        {
+            var entry = AudioCore.GameDataRuntimeResolver.Get<RuntimeAudioData>(id);
+            if (entry != null)
+            {
+                DynamicAudioSource source = this.PrepareAudioSource(entry);
+                if (source == null)
+                {
+                    return AudioTicket.Invalid;
+                }
+
+                AudioMixerGroup channel = this.masterMixer.GetChannel(entry.Channel);
+                if (channel == null)
+                {
+                    Logger.Warn("Invalid audio channel in clip {0}: {1}", entry.Id, entry.Channel);
+                    return AudioTicket.Invalid;
+                }
+
+                var ticket = new AudioTicket();
+                source.SetPosition(position);
+                source.Play(ticket, entry, true, channel, parameters);
+
+                this.RegisterSource(ticket, source);
+                return ticket;
+            }
+
+            return AudioTicket.Invalid;
+        }
+
         public void Stop(AudioTicket ticket)
         {
             DynamicAudioSource source;
@@ -165,7 +190,7 @@
             source.gameObject.SetActive(true);
             return source;
         }
-        
+
         private void RegisterSource(AudioTicket ticket, DynamicAudioSource source)
         {
             this.activeSources.Add(ticket, source);

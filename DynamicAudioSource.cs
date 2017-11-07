@@ -13,6 +13,9 @@
     public class DynamicAudioSource : MonoBehaviour, IPoolable
     {
         private readonly EnumStateMachine<DynamicAudioSource, DynamicAudioSourceStateBase, DynamicAudioSourceState> state;
+
+        private Transform anchorTransform;
+        private bool followAnchor;
         
         // -------------------------------------------------------------------
         // Constructor
@@ -72,6 +75,12 @@
 
         public void Update()
         {
+            if (this.followAnchor)
+            {
+                this.transform.position = this.anchorTransform.position;
+                this.transform.rotation = this.anchorTransform.rotation;
+            }
+            
             this.state.Update();
         }
 
@@ -108,14 +117,23 @@
             this.state.SwitchState(DynamicAudioSourceState.FadeIn);
         }
 
-        internal void SwitchState(DynamicAudioSourceState newState)
+        public void SetAnchor(Transform anchor)
         {
-            this.state.SwitchState(newState);
+            this.anchorTransform = anchor;
+            this.followAnchor = this.anchorTransform != null;
         }
         
         public void Stop()
         {
             this.state.SwitchState(DynamicAudioSourceState.FadeOut);
+        }
+        
+        // -------------------------------------------------------------------
+        // Internal
+        // -------------------------------------------------------------------
+        internal void SwitchState(DynamicAudioSourceState newState)
+        {
+            this.state.SwitchState(newState);
         }
 
         // -------------------------------------------------------------------

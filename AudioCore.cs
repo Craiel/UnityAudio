@@ -5,6 +5,7 @@
     using Audio.Contracts;
     using GameData.Contracts;
     using NLog;
+    using Resource;
 
     public static class AudioCore
     {
@@ -21,6 +22,9 @@
         // -------------------------------------------------------------------
         // Public
         // -------------------------------------------------------------------
+        public static ResourceKey MasterMixerResource { get; set; }
+        public static ResourceKey DynamicAudioSourceResource { get; set; }
+        
         public static IGameDataRuntimeResolver GameDataRuntimeResolver { get; set; }
 
         // -------------------------------------------------------------------
