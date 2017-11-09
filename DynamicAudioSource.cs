@@ -91,6 +91,10 @@
 
         public void Play(AudioTicket ticket, RuntimeAudioData entry, bool is3D, AudioMixerGroup mixerGroup, AudioPlayParameters parameters)
         {
+            this.Source.clip = parameters.UseRandomClip
+                ? GetClip(entry, (ushort)Random.Range(0, entry.ClipKeys.Count))
+                : GetClip(entry, parameters.ClipIndex);
+            
             this.Source.spatialBlend = is3D ? 1f : 0f;
 
             switch (entry.PlayBehavior)
@@ -104,10 +108,6 @@
 
             this.Parameters = parameters;
             this.Source.outputAudioMixerGroup = mixerGroup;
-
-            this.Source.clip = parameters.UseRandomClip
-                ? GetClip(entry, (ushort)Random.Range(0, entry.ClipKeys.Count))
-                : GetClip(entry, parameters.ClipIndex);
 
             this.ActiveId = entry.Id;
             this.Ticket = ticket;

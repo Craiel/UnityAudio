@@ -11,7 +11,7 @@
         // -------------------------------------------------------------------
         public override void Update(DynamicAudioSource entity)
         {
-            base.Update(entity);
+            entity.Reset();
         }
     }
 }

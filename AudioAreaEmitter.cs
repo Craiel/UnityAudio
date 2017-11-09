@@ -39,9 +39,19 @@
 
         public void Update()
         {
-            if (this.Audio != null && (this.AudioId == GameDataId.Invalid || this.AudioId.Guid != this.Audio.RefGuid))
+            if (this.Audio != null && this.Audio.IsValid())
             {
-                this.AudioId = AudioCore.GameDataRuntimeResolver.GetRuntimeId(this.Audio);
+                if (this.AudioId == GameDataId.Invalid || this.AudioId.Guid != this.Audio.RefGuid)
+                {
+                    // First we try to get the exported id
+                    this.AudioId = AudioCore.GameDataRuntimeResolver.GetRuntimeId(this.Audio);
+                    
+                    if (this.AudioId == GameDataId.Invalid)
+                    {
+                        // Create a guid only id since the data is not exported
+                        this.AudioId = new GameDataId(this.Audio.RefGuid, GameDataId.InvalidId);
+                    }
+                }
             }
 
             if (!this.ActivateOnTrigger)

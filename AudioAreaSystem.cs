@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using Assets.Scripts.Craiel.Essentials;
+    using Essentials.Enums;
+    using Essentials.Scene;
 
     public class AudioAreaSystem : UnitySingletonBehavior<AudioAreaSystem>
     {
@@ -21,6 +23,13 @@
         // -------------------------------------------------------------------
         // Public
         // -------------------------------------------------------------------
+        public override void Initialize()
+        {
+            SceneObjectController.Instance.RegisterObjectAsRoot(SceneRootCategory.System, this.gameObject, true);
+            
+            base.Initialize();
+        }
+
         public void Activate(AudioAreaEmitter emitter)
         {
             if (this.activeEmitters.Contains(emitter))
