@@ -19,7 +19,7 @@
 
         public virtual void Awake()
         {
-            this.audioId = AudioCore.GameDataRuntimeResolver.GetRuntimeId(this.Audio);
+            this.audioId = GameRuntimeData.Instance.GetRuntimeId(this.Audio);
         }
 
         public virtual void OnDestroy()

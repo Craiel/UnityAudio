@@ -67,7 +67,7 @@ namespace Assets.Scripts.Craiel.Audio
 
         public AudioTicket Play(GameDataId id, AudioPlayParameters parameters = default (AudioPlayParameters))
         {
-            var entry = AudioCore.GameDataRuntimeResolver.Get<RuntimeAudioData>(id);
+            var entry = GameRuntimeData.Instance.Get<RuntimeAudioData>(id);
             if (entry != null)
             {
                 DynamicAudioSource source = this.PrepareAudioSource(entry);
@@ -95,7 +95,7 @@ namespace Assets.Scripts.Craiel.Audio
 
         public AudioTicket PlayAnchored(Transform anchorTransform, GameDataId id, AudioPlayParameters parameters = default(AudioPlayParameters))
         {
-            var entry = AudioCore.GameDataRuntimeResolver.Get<RuntimeAudioData>(id);
+            var entry = GameRuntimeData.Instance.Get<RuntimeAudioData>(id);
             if (entry != null)
             {
                 DynamicAudioSource source = this.PrepareAudioSource(entry);
@@ -124,7 +124,7 @@ namespace Assets.Scripts.Craiel.Audio
 
         public AudioTicket PlayStationary(Vector3 position, GameDataId id, AudioPlayParameters parameters = default(AudioPlayParameters))
         {
-            var entry = AudioCore.GameDataRuntimeResolver.Get<RuntimeAudioData>(id);
+            var entry = GameRuntimeData.Instance.Get<RuntimeAudioData>(id);
             if (entry != null)
             {
                 DynamicAudioSource source = this.PrepareAudioSource(entry);

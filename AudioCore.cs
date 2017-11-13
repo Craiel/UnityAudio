@@ -3,6 +3,8 @@
     using System;
     using System.Linq;
     using Audio.Contracts;
+    using Audio.Data;
+    using GameData;
     using GameData.Contracts;
     using NLog;
     using Resource;
@@ -25,8 +27,6 @@
         public static ResourceKey MasterMixerResource { get; set; }
         public static ResourceKey DynamicAudioSourceResource { get; set; }
         
-        public static IGameDataRuntimeResolver GameDataRuntimeResolver { get; set; }
-
         // -------------------------------------------------------------------
         // Private
         // -------------------------------------------------------------------
