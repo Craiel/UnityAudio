@@ -1,7 +1,8 @@
 ﻿namespace Assets.Scripts.Craiel.Audio.Contracts
 {
-    public interface IAudioConfig
+    using Essentials.Contracts;
+
+    public interface IAudioConfig : IComponentConfig
     {
-        void Configure();
     }
 }
