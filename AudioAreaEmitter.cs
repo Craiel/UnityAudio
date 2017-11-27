@@ -1,7 +1,6 @@
 ﻿namespace Assets.Scripts.Craiel.Audio
 {
     using Assets.Scripts.Craiel.GameData;
-    using Essentials;
     using UnityEngine;
 
     public class AudioAreaEmitter : MonoBehaviour
@@ -44,7 +43,7 @@
                 if (this.AudioId == GameDataId.Invalid || this.AudioId.Guid != this.Audio.RefGuid)
                 {
                     // First we try to get the exported id
-                    this.AudioId = AudioCore.GameDataRuntimeResolver.GetRuntimeId(this.Audio);
+                    this.AudioId = GameRuntimeData.Instance.GetRuntimeId(this.Audio);
                     
                     if (this.AudioId == GameDataId.Invalid)
                     {
