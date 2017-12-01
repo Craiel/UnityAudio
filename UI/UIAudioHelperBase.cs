@@ -4,46 +4,49 @@
     using GameData;
     using UnityEngine;
 
-    public abstract class UIAudioHelperBase : MonoBehaviour
+    public abstract class UIAudioHelperBase : AudioAttachedBehavior
     {
         private GameDataId audioId;
 
         private AudioTicket audioTicket;
-
+        
         // -------------------------------------------------------------------
         // Public
         // -------------------------------------------------------------------
         [SerializeField]
         public GameDataRuntimeAudioRef Audio;
 
-        public virtual void Awake()
+        public override void StopAllAudio()
         {
-            this.audioId = GameRuntimeData.Instance.GetRuntimeId(this.Audio);
-        }
-
-        public virtual void OnDestroy()
-        {
-            this.StopAudio();
+            AudioSystem.Instance.Stop(ref this.audioTicket);
         }
 
         // -------------------------------------------------------------------
         // Protected
         // -------------------------------------------------------------------
-        protected void PlayAudio()
+        protected override void SetupAudio()
         {
-            this.StopAudio();
-            if (this.audioId != GameDataId.Invalid)
+            base.SetupAudio();
+
+            if (this.Audio != null && this.Audio.IsValid())
             {
-                this.audioTicket = AudioSystem.Instance.Play(this.audioId);
+                this.audioId = GameRuntimeData.Instance.GetRuntimeId(this.Audio);
             }
         }
 
-        protected void StopAudio()
+        protected override void ReleaseAudio()
         {
-            if (this.audioTicket != AudioTicket.Invalid)
+            base.ReleaseAudio();
+
+            this.audioId = GameDataId.Invalid;
+        }
+
+        protected void PlayAudio()
+        {
+            this.StopAllAudio();
+            if (this.audioId != GameDataId.Invalid)
             {
-                AudioSystem.Instance.Stop(this.audioTicket);
-                this.audioTicket = AudioTicket.Invalid;
+                this.audioTicket = AudioSystem.Instance.Play(this.audioId);
             }
         }
     }

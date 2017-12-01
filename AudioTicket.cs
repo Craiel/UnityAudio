@@ -4,6 +4,8 @@
     {
         public static readonly AudioTicket Invalid = new AudioTicket(0);
 
+        private static uint nextId = 1;
+
         // -------------------------------------------------------------------
         // Constructor
         // -------------------------------------------------------------------
@@ -41,6 +43,11 @@
         public override int GetHashCode()
         {
             return (int)this.Id;
+        }
+
+        public static AudioTicket Next()
+        {
+            return new AudioTicket(nextId++);
         }
     }
 }

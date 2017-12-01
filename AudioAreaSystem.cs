@@ -51,7 +51,7 @@
                 IList<AudioAreaEmitter> lowerEmitters = this.activeEmitters.Where(x => x.Priority < emitter.Priority).ToList();
                 foreach (AudioAreaEmitter activeEmitter in lowerEmitters)
                 {
-                    activeEmitter.Stop();
+                    activeEmitter.StopAllAudio();
                 }
 
                 this.highestActivePriority = emitter.Priority;
@@ -69,7 +69,7 @@
             }
 
             this.activeEmitters.Remove(emitter);
-            emitter.Stop();
+            emitter.StopAllAudio();
 
             if (this.activeEmitters.Count == 0)
             {

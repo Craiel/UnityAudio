@@ -3,8 +3,10 @@
     using Assets.Scripts.Craiel.GameData;
     using UnityEngine;
 
-    public class AudioAreaEmitter : MonoBehaviour
+    public class AudioAreaEmitter : AudioAttachedBehavior
     {
+        private GameDataId audioId;
+
         private AudioTicket audioTicket;
 
         // -------------------------------------------------------------------
@@ -33,34 +35,11 @@
 
         [SerializeField]
         public bool IgnorePriority;
-
-        public GameDataId AudioId { get; private set; }
-
-        public void Update()
+        
+        public override void OnDestroy()
         {
-            if (this.Audio != null && this.Audio.IsValid())
-            {
-                if (this.AudioId == GameDataId.Invalid || this.AudioId.Guid != this.Audio.RefGuid)
-                {
-                    // First we try to get the exported id
-                    this.AudioId = GameRuntimeData.Instance.GetRuntimeId(this.Audio);
-                    
-                    if (this.AudioId == GameDataId.Invalid)
-                    {
-                        // Create a guid only id since the data is not exported
-                        this.AudioId = new GameDataId(this.Audio.RefGuid, GameDataId.InvalidId);
-                    }
-                }
-            }
+            base.OnDestroy();
 
-            if (!this.ActivateOnTrigger)
-            {
-                this.Activate();
-            }
-        }
-
-        public void OnDestroy()
-        {
             this.Deactivate();
         }
 
@@ -86,7 +65,7 @@
 
         public void Play()
         {
-            this.Stop();
+            this.StopAllAudio();
 
             var parameters = new AudioPlayParameters
             {
@@ -96,23 +75,44 @@
 
             if (this.IsLocalized)
             {
-                this.audioTicket = AudioSystem.Instance.PlayStationary(this.gameObject.transform.position, this.AudioId, parameters);
+                this.audioTicket = AudioSystem.Instance.PlayStationary(this.gameObject.transform.position, this.audioId, parameters);
             }
             else
             {
-                this.audioTicket = AudioSystem.Instance.Play(this.AudioId, parameters);
+                this.audioTicket = AudioSystem.Instance.Play(this.audioId, parameters);
             }
         }
 
-        public void Stop()
+        public override void StopAllAudio()
         {
-            if (this.audioTicket == AudioTicket.Invalid)
+            AudioSystem.Instance.Stop(ref this.audioTicket);
+        }
+
+        // -------------------------------------------------------------------
+        // Protected
+        // -------------------------------------------------------------------
+        protected override void SetupAudio()
+        {
+            base.SetupAudio();
+
+            if (this.Audio != null && this.Audio.IsValid())
             {
-                return;
+                this.audioId = GameRuntimeData.Instance.GetRuntimeId(this.Audio);
             }
 
-            AudioSystem.Instance.Stop(this.audioTicket);
-            this.audioTicket = AudioTicket.Invalid;
+            if (!this.ActivateOnTrigger)
+            {
+                this.Activate();
+            }
+        }
+
+        protected override void ReleaseAudio()
+        {
+            this.Deactivate();
+
+            base.ReleaseAudio();
+            
+            this.audioId = GameDataId.Invalid;
         }
 
         // -------------------------------------------------------------------

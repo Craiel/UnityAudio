@@ -79,7 +79,7 @@
                     return AudioTicket.Invalid;
                 }
 
-                var ticket = new AudioTicket();
+                var ticket = AudioTicket.Next();
                 source.Play(ticket, entry, false, group, parameters);
 
                 this.RegisterSource(ticket, source);
@@ -107,7 +107,7 @@
                     return AudioTicket.Invalid;
                 }
 
-                var ticket = new AudioTicket();
+                var ticket = AudioTicket.Next();
                 source.SetAnchor(anchorTransform);
                 source.Play(ticket, entry, true, channel, parameters);
 
@@ -136,7 +136,7 @@
                     return AudioTicket.Invalid;
                 }
 
-                var ticket = new AudioTicket();
+                var ticket = AudioTicket.Next();
                 source.SetPosition(position);
                 source.Play(ticket, entry, true, channel, parameters);
 
@@ -147,13 +147,15 @@
             return AudioTicket.Invalid;
         }
 
-        public void Stop(AudioTicket ticket)
+        public void Stop(ref AudioTicket ticket)
         {
             DynamicAudioSource source;
             if (this.activeSources.TryGetValue(ticket, out source))
             {
                 source.Stop();
             }
+
+            ticket = AudioTicket.Invalid;
         }
 
         public void StopByDataId(GameDataId id)
@@ -161,10 +163,14 @@
             IList<AudioTicket> tickets;
             if (this.sourcesByDataMap.TryGetValue(id, out tickets))
             {
-                foreach (AudioTicket ticket in tickets)
+                for (var i = 0; i < tickets.Count; i++)
                 {
-                    this.Stop(ticket);
+                    AudioTicket ticket = tickets[i];
+                    this.Stop(ref ticket);
                 }
+
+                tickets.Clear();
+                this.sourcesByDataMap.Remove(id);
             }
         }
 
