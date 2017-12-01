@@ -2,7 +2,7 @@
 {
     using Essentials.Contracts;
 
-    public interface IAudioConfig : IComponentConfig
+    public interface IAudioConfig : ICraielComponentConfig
     {
     }
 }

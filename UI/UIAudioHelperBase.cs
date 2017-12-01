@@ -1,8 +1,7 @@
-﻿namespace Assets.Scripts.Craiel.Audio.UI.Utils
+﻿namespace Assets.Scripts.Craiel.Audio.UI
 {
-    using Craiel.Audio;
-    using Craiel.GameData;
-    using Essentials;
+    using Audio;
+    using GameData;
     using UnityEngine;
 
     public abstract class UIAudioHelperBase : MonoBehaviour

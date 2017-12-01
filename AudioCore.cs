@@ -1,8 +1,8 @@
-﻿namespace Assets.Scripts.Craiel.Essentials
+﻿namespace Assets.Scripts.Craiel.Audio
 {
-    using Audio.Contracts;
-    using Resource;
-    using UnityComponent;
+    using Contracts;
+    using Essentials.Component;
+    using Essentials.Resource;
 
     public static class AudioCore
     {
@@ -11,7 +11,7 @@
         // -------------------------------------------------------------------
         static AudioCore()
         {
-            new UnityComponentConfigurator<IAudioConfig>().Configure();
+            new CraielComponentConfigurator<IAudioConfig>().Configure();
         }
 
         // -------------------------------------------------------------------

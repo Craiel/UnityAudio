@@ -1,16 +1,12 @@
-﻿using AudioMixerController = Craiel.Audio.AudioMixerController;
-
-namespace Assets.Scripts.Craiel.Audio
+﻿namespace Assets.Scripts.Craiel.Audio
 {
     using System.Collections.Generic;
     using Craiel.Essentials;
     using Craiel.Essentials.Enums;
-    using Craiel.Essentials.Resource;
     using Craiel.Essentials.Scene;
     using Craiel.GameData;
     using Data;
     using Enums;
-    using Essentials.Event;
     using NLog;
     using UnityEngine;
     using UnityEngine.Audio;

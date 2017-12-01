@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Craiel.Audio.UI.Utils
+﻿namespace Assets.Scripts.Craiel.Audio.UI
 {
     using UnityEngine;
     using UnityEngine.UI;

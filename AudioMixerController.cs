@@ -1,9 +1,9 @@
-﻿namespace Craiel.Audio
+﻿namespace Assets.Scripts.Craiel.Audio
 {
     using System;
     using System.Collections.Generic;
-    using Assets.Scripts.Craiel.Audio.Enums;
-    using Assets.Scripts.Craiel.Essentials.Resource;
+    using Enums;
+    using Essentials.Resource;
     using UnityEngine.Audio;
 
     public class AudioMixerController
@@ -55,7 +55,7 @@
 
         public AudioMixerGroup GetChannel(AudioChannel channel)
         {
-            return GetChannel(channel.ToString());
+            return this.GetChannel(channel.ToString());
         }
 
         public AudioMixerGroup GetChannel(string channel)
