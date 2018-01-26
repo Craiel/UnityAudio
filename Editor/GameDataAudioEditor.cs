@@ -3,28 +3,52 @@
     using Craiel.Essentials.Editor.UserInterface;
     using Craiel.GameData.Editor.Common;
     using Essentials.Editor.ReorderableList;
+    using GameData.Editor;
+    using GameData.Editor.Enums;
     using UnityEditor;
 
     [CustomEditor(typeof(GameDataAudio))]
     [CanEditMultipleObjects]
     public class GameDataAudioEditor : GameDataObjectEditor
     {
-        private static bool visualFoldout = true;
+        private static bool propertiesFoldout = true;
 
         // -------------------------------------------------------------------
         // Public
         // -------------------------------------------------------------------
         public override void DrawGUI()
         {
-            this.DrawProperties();
+            switch (GameDataEditorCore.Config.GetViewMode())
+            {
+                case GameDataEditorViewMode.Compact:
+                {
+                    this.DrawCompact();
+                    break;
+                }
+                    
+                case GameDataEditorViewMode.Full:
+                {
+                    this.DrawFull();
+                    break;
+                }
+            }
         }
 
         // -------------------------------------------------------------------
         // Private
         // -------------------------------------------------------------------
+        private void DrawCompact()
+        {
+        }
+
+        private void DrawFull()
+        {
+            this.DrawProperties();            
+        }
+        
         private void DrawProperties()
         {
-            if (this.DrawFoldout("Properties", ref visualFoldout))
+            if (this.DrawFoldout("Properties", ref propertiesFoldout))
             {
                 EditorGUILayout.PropertyField(this.serializedObject.FindProperty<GameDataAudio>(x => x.AudioChannel), true);
                 EditorGUILayout.PropertyField(this.serializedObject.FindProperty<GameDataAudio>(x => x.PlayBehavior), true);
