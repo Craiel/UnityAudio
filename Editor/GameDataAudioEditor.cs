@@ -30,7 +30,7 @@
         // -------------------------------------------------------------------
         private void DrawProperties()
         {
-            if (this.DrawFoldout("Properties", ref propertiesFoldout))
+            if (this.DrawFoldout("Audio Properties", ref propertiesFoldout))
             {
                 EditorGUILayout.PropertyField(this.serializedObject.FindProperty<GameDataAudio>(x => x.AudioChannel), true);
                 EditorGUILayout.PropertyField(this.serializedObject.FindProperty<GameDataAudio>(x => x.PlayBehavior), true);
