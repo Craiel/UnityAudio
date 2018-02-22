@@ -18,10 +18,13 @@
         // -------------------------------------------------------------------
         protected override void DrawCompact()
         {
+            base.DrawCompact();
         }
 
         protected override void DrawFull()
         {
+            base.DrawFull();
+
             this.DrawProperties();
         }
         
