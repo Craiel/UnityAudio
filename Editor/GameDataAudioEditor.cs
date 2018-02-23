@@ -6,6 +6,7 @@
     using GameData.Editor;
     using GameData.Editor.Enums;
     using UnityEditor;
+    using UnityEngine;
 
     [CustomEditor(typeof(GameDataAudio))]
     [CanEditMultipleObjects]
@@ -14,13 +15,19 @@
         private static bool propertiesFoldout = true;
 
         // -------------------------------------------------------------------
-        // Protected
+        // Public
         // -------------------------------------------------------------------
-        protected override void DrawCompact()
+        public override void DrawCompact()
         {
             base.DrawCompact();
+            
+            var typedTarget = (GameDataAudio)this.target;
+            GUILayout.Label(string.Format(" Channel: {0}", typedTarget.AudioChannel));
         }
-
+        
+        // -------------------------------------------------------------------
+        // Protected
+        // -------------------------------------------------------------------
         protected override void DrawFull()
         {
             base.DrawFull();
