@@ -7,8 +7,8 @@
 
     public abstract class AudioAttachedBehavior : MonoBehaviour
     {
-        private GameEventSubscriptionTicket loadEventTicket;
-        private GameEventSubscriptionTicket unloadEventTicket;
+        private BaseEventSubscriptionTicket loadEventTicket;
+        private BaseEventSubscriptionTicket unloadEventTicket;
 
         // -------------------------------------------------------------------
         // Public
