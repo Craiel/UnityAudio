@@ -1,17 +1,11 @@
-﻿using IVFXEditorComponent = Craiel.GameData.Editor.Contracts.VFXShared.IVFXEditorComponent;
-
-namespace Assets.Scripts.Craiel.Audio.Editor
+﻿namespace Assets.Scripts.Craiel.Audio.Editor
 {
-    public class AudioVFXMusicEditorComponent : IVFXEditorComponent
-    {
-        public string Category
-        {
-            get { return AudioEditorConstants.VFXComponentCategory; }
-        }
+    using VFX.Editor.Components;
 
-        public string Name
-        {
-            get { return "Music"; }
-        }
+    public class AudioVFXMusicEditorComponent : VFXEdiorComponentBase
+    {
+        // -------------------------------------------------------------------
+        // Public
+        // -------------------------------------------------------------------
     }
 }
