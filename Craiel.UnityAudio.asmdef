@@ -1,0 +1,8 @@
+{
+    "name": "Craiel.UnityAudio",
+    "references": [
+        "Craiel.UnityEssentials"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
