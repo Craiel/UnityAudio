@@ -1,8 +1,9 @@
-﻿namespace Assets.Scripts.Craiel.Audio.Data
+﻿using ResourceKey = Craiel.UnityEssentials.Resource.ResourceKey;
+
+namespace Assets.Scripts.Craiel.Audio.Data
 {
     using System;
     using System.Collections.Generic;
-    using Craiel.Essentials.Resource;
     using Craiel.GameData;
     using Enums;
     using UnityEngine;

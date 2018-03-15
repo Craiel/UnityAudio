@@ -1,9 +1,9 @@
-﻿namespace Assets.Scripts.Craiel.Audio
+﻿using IPoolable = Craiel.UnityEssentials.Contracts.IPoolable;
+using ResourceProvider = Craiel.UnityEssentials.Resource.ResourceProvider;
+
+namespace Assets.Scripts.Craiel.Audio
 {
-    using Craiel.Essentials.Resource;
     using Craiel.GameData;
-    using Craiel.GDX.AI.Sharp.Contracts;
-    using Craiel.GDX.AI.Sharp.FSM;
     using Data;
     using Enums;
     using States;

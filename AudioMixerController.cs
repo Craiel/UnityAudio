@@ -1,9 +1,11 @@
-﻿namespace Assets.Scripts.Craiel.Audio
+﻿using ResourceKey = Craiel.UnityEssentials.Resource.ResourceKey;
+using ResourceProvider = Craiel.UnityEssentials.Resource.ResourceProvider;
+
+namespace Assets.Scripts.Craiel.Audio
 {
     using System;
     using System.Collections.Generic;
     using Enums;
-    using Essentials.Resource;
     using UnityEngine.Audio;
 
     public class AudioMixerController

@@ -1,8 +1,8 @@
-﻿namespace Assets.Scripts.Craiel.Audio
+﻿using ResourceKey = Craiel.UnityEssentials.Resource.ResourceKey;
+
+namespace Assets.Scripts.Craiel.Audio
 {
     using Contracts;
-    using Essentials.Component;
-    using Essentials.Resource;
 
     public static class AudioCore
     {

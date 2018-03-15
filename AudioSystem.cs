@@ -1,9 +1,10 @@
-﻿namespace Assets.Scripts.Craiel.Audio
+﻿using SceneObjectController = Craiel.UnityEssentials.Scene.SceneObjectController;
+using SceneRootCategory = Craiel.UnityEssentials.Enums.SceneRootCategory;
+
+namespace Assets.Scripts.Craiel.Audio
 {
     using System.Collections.Generic;
     using Craiel.Essentials;
-    using Craiel.Essentials.Enums;
-    using Craiel.Essentials.Scene;
     using Craiel.GameData;
     using Data;
     using Enums;

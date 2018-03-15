@@ -1,6 +1,7 @@
-﻿namespace Assets.Scripts.Craiel.Audio.Editor
+﻿using ReorderableListGUI = Craiel.UnityEssentials.Editor.ReorderableList.ReorderableListGUI;
+
+namespace Assets.Scripts.Craiel.Audio.Editor
 {
-    using Craiel.Essentials.Editor.UserInterface;
     using Craiel.GameData.Editor.Common;
     using Essentials.Editor.ReorderableList;
     using GameData.Editor;

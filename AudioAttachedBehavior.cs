@@ -1,4 +1,7 @@
-﻿namespace Assets.Scripts.Craiel.Audio
+﻿using BaseEventSubscriptionTicket = Craiel.UnityEssentials.Event.BaseEventSubscriptionTicket;
+using GameEvents = Craiel.UnityEssentials.Event.GameEvents;
+
+namespace Assets.Scripts.Craiel.Audio
 {
     using Essentials.Event;
     using GameData;
