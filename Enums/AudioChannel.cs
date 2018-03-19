@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Craiel.Audio.Enums
+﻿namespace Craiel.UnityAudio.Enums
 {
     public enum AudioChannel
     {

@@ -1,12 +1,14 @@
-﻿using ResourceKey = Craiel.UnityEssentials.Resource.ResourceKey;
+﻿using AudioChannel = Craiel.UnityAudio.Enums.AudioChannel;
+using AudioFlags = Craiel.UnityAudio.Enums.AudioFlags;
+using AudioPlayBehavior = Craiel.UnityAudio.Enums.AudioPlayBehavior;
+using ResourceKey = Craiel.UnityEssentials.Resource.ResourceKey;
 
-namespace Assets.Scripts.Craiel.Audio.Data
+namespace Craiel.UnityAudio.Data
 {
     using System;
     using System.Collections.Generic;
-    using Craiel.GameData;
-    using Enums;
     using UnityEngine;
+    using UnityGameData;
 
     [Serializable]
     public class RuntimeAudioData : RuntimeGameData

@@ -1,6 +1,6 @@
 ﻿using ICraielComponentConfig = Craiel.UnityEssentials.Contracts.ICraielComponentConfig;
 
-namespace Assets.Scripts.Craiel.Audio.Contracts
+namespace Craiel.UnityAudio.Contracts
 {
     public interface IAudioConfig : ICraielComponentConfig
     {

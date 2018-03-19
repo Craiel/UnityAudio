@@ -1,16 +1,16 @@
-﻿using SceneObjectController = Craiel.UnityEssentials.Scene.SceneObjectController;
-using SceneRootCategory = Craiel.UnityEssentials.Enums.SceneRootCategory;
-
-namespace Assets.Scripts.Craiel.Audio
+﻿namespace Craiel.UnityAudio
 {
     using System.Collections.Generic;
-    using Craiel.Essentials;
-    using Craiel.GameData;
+    using Assets.Scripts.Craiel.GameData;
     using Data;
     using Enums;
     using NLog;
     using UnityEngine;
     using UnityEngine.Audio;
+    using UnityEssentials.Enums;
+    using UnityEssentials.Scene;
+    using UnityEssentials.Singletons;
+    using UnityGameData;
 
     public class AudioSystem : UnitySingletonBehavior<AudioSystem>
     {

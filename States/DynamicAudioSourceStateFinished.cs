@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Craiel.Audio.States
+﻿namespace Craiel.UnityAudio.States
 {
     public class DynamicAudioSourceStateInactive : DynamicAudioSourceStateBase
     {

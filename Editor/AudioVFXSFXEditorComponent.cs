@@ -1,6 +1,6 @@
-﻿namespace Assets.Scripts.Craiel.Audio.Editor
+﻿namespace Craiel.UnityAudio.Editor
 {
-    using VFX.Editor.Components;
+    using UnityGameData.VFXShared;
 
     public class AudioVFXSFXEditorComponent : VFXEdiorComponentBase
     {

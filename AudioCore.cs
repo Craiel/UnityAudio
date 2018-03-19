@@ -1,8 +1,9 @@
 ﻿using ResourceKey = Craiel.UnityEssentials.Resource.ResourceKey;
 
-namespace Assets.Scripts.Craiel.Audio
+namespace Craiel.UnityAudio
 {
     using Contracts;
+    using UnityEssentials.Component;
 
     public static class AudioCore
     {

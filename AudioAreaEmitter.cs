@@ -1,7 +1,7 @@
-﻿namespace Assets.Scripts.Craiel.Audio
+﻿namespace Craiel.UnityAudio
 {
-    using Assets.Scripts.Craiel.GameData;
     using UnityEngine;
+    using UnityGameData;
 
     public class AudioAreaEmitter : AudioAttachedBehavior
     {

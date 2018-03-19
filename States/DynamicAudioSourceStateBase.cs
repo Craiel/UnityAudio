@@ -1,8 +1,8 @@
 ﻿using Telegram = Craiel.UnityEssentials.Msg.Telegram;
 
-namespace Assets.Scripts.Craiel.Audio.States
+namespace Craiel.UnityAudio.States
 {
-    using Audio;
+    using UnityEssentials.Contracts;
 
     public class DynamicAudioSourceStateBase : IState<DynamicAudioSource>
     {

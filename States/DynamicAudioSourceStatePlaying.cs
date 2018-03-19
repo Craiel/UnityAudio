@@ -1,6 +1,6 @@
-﻿namespace Assets.Scripts.Craiel.Audio.States
+﻿namespace Craiel.UnityAudio.States
 {
-    using Audio;
+    using Assets.Scripts.Craiel.Audio.Enums;
     using Enums;
 
     public class DynamicAudioSourceStatePlaying : DynamicAudioSourceStateBase

@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Craiel.Audio.Editor
+﻿namespace Craiel.UnityAudio.Editor
 {
     public class AudioEditorConstants
     {

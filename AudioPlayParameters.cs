@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Craiel.Audio
+﻿namespace Craiel.UnityAudio
 {
     public struct AudioPlayParameters
     {

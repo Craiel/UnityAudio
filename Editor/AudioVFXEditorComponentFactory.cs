@@ -1,12 +1,12 @@
 ﻿using IVFXEditorComponent = Craiel.GameData.Editor.Contracts.VFXShared.IVFXEditorComponent;
-using IVFXEditorComponentFactory = Craiel.GameData.Editor.Contracts.VFXShared.IVFXEditorComponentFactory;
+using IVFXEditorComponentFactory = Craiel.UnityGameData.Editor.Contracts.VFXShared.IVFXEditorComponentFactory;
 
-namespace Assets.Scripts.Craiel.Audio.Editor
+namespace Craiel.UnityAudio.Editor
 {
-    using System;
     using System.Collections.Generic;
     using UnityEngine;
-    using VFX.Editor.Components;
+    using UnityGameData.Editor.Contracts.VFXShared;
+    using UnityGameData.VFXShared;
 
     public class AudioVFXEditorComponentFactory : IVFXEditorComponentFactory
     {

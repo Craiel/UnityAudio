@@ -1,8 +1,7 @@
-﻿namespace Assets.Scripts.Craiel.Audio.UI
+﻿namespace Craiel.UnityAudio.UI
 {
-    using Audio;
-    using GameData;
     using UnityEngine;
+    using UnityGameData;
 
     public abstract class UIAudioHelperBase : AudioAttachedBehavior
     {

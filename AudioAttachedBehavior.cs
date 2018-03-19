@@ -1,12 +1,11 @@
 ﻿using BaseEventSubscriptionTicket = Craiel.UnityEssentials.Event.BaseEventSubscriptionTicket;
 using GameEvents = Craiel.UnityEssentials.Event.GameEvents;
 
-namespace Assets.Scripts.Craiel.Audio
+namespace Craiel.UnityAudio
 {
-    using Essentials.Event;
-    using GameData;
-    using GameData.Events;
     using UnityEngine;
+    using UnityGameData;
+    using UnityGameData.Events;
 
     public abstract class AudioAttachedBehavior : MonoBehaviour
     {

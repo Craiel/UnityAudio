@@ -1,5 +1,7 @@
-﻿namespace Assets.Scripts.Craiel.Audio
+﻿namespace Craiel.UnityAudio
 {
+    using UnityEssentials.Pool;
+
     public class DynamicAudioSourcePool : GameObjectPool<DynamicAudioSource>
     {
     }

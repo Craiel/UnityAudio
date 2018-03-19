@@ -1,13 +1,11 @@
 ﻿using ReorderableListGUI = Craiel.UnityEssentials.Editor.ReorderableList.ReorderableListGUI;
 
-namespace Assets.Scripts.Craiel.Audio.Editor
+namespace Craiel.UnityAudio.Editor
 {
-    using Craiel.GameData.Editor.Common;
-    using Essentials.Editor.ReorderableList;
-    using GameData.Editor;
-    using GameData.Editor.Enums;
     using UnityEditor;
     using UnityEngine;
+    using UnityEssentials.Editor.UserInterface;
+    using UnityGameData.Editor.Common;
 
     [CustomEditor(typeof(GameDataAudio))]
     [CanEditMultipleObjects]

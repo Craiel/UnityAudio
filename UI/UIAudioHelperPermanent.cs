@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Craiel.Audio.UI
+﻿namespace Craiel.UnityAudio.UI
 {
     public class UIAudioHelperPermanent : UIAudioHelperBase
     {

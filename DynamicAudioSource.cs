@@ -1,14 +1,16 @@
 ﻿using IPoolable = Craiel.UnityEssentials.Contracts.IPoolable;
 using ResourceProvider = Craiel.UnityEssentials.Resource.ResourceProvider;
 
-namespace Assets.Scripts.Craiel.Audio
+namespace Craiel.UnityAudio
 {
-    using Craiel.GameData;
+    using Assets.Scripts.Craiel.Audio.Enums;
     using Data;
     using Enums;
     using States;
     using UnityEngine;
     using UnityEngine.Audio;
+    using UnityEssentials.FSM;
+    using UnityGameData;
 
     public class DynamicAudioSource : MonoBehaviour, IPoolable
     {
@@ -92,8 +94,8 @@ namespace Assets.Scripts.Craiel.Audio
         public void Play(AudioTicket ticket, RuntimeAudioData entry, bool is3D, AudioMixerGroup mixerGroup, AudioPlayParameters parameters)
         {
             this.Source.clip = parameters.UseRandomClip
-                ? GetClip(entry, (ushort)Random.Range(0, entry.ClipKeys.Count))
-                : GetClip(entry, parameters.ClipIndex);
+                ? this.GetClip(entry, (ushort)Random.Range(0, entry.ClipKeys.Count))
+                : this.GetClip(entry, parameters.ClipIndex);
             
             this.Source.spatialBlend = is3D ? 1f : 0f;
 

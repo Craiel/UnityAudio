@@ -1,9 +1,9 @@
-﻿namespace Assets.Scripts.Craiel.Audio.UI
+﻿namespace Craiel.UnityAudio.UI
 {
-    using GameData;
     using UnityEngine;
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
+    using UnityGameData;
 
     public class UIAudioHelperButton : UIAudioHelperBase, IPointerEnterHandler, IPointerExitHandler
     {

@@ -1,7 +1,5 @@
-﻿namespace Assets.Scripts.Craiel.Audio.States
+﻿namespace Craiel.UnityAudio.States
 {
-    using Audio;
-
     public class DynamicAudioSourceStateFinished : DynamicAudioSourceStateBase
     {
         public static readonly DynamicAudioSourceStateFinished Instance = new DynamicAudioSourceStateFinished();
