@@ -1,9 +1,7 @@
-﻿using BaseEventSubscriptionTicket = Craiel.UnityEssentials.Event.BaseEventSubscriptionTicket;
-using GameEvents = Craiel.UnityEssentials.Event.GameEvents;
-
-namespace Craiel.UnityAudio
+﻿namespace Craiel.UnityAudio
 {
     using UnityEngine;
+    using UnityEssentials.Event;
     using UnityGameData;
     using UnityGameData.Events;
 
@@ -33,8 +31,8 @@ namespace Craiel.UnityAudio
 
         public virtual void OnDestroy()
         {
-            GameEvents.Instance.Unsubscribe(this.loadEventTicket);
-            GameEvents.Instance.Unsubscribe(this.unloadEventTicket);
+            GameEvents.Instance.Unsubscribe(ref this.loadEventTicket);
+            GameEvents.Instance.Unsubscribe(ref this.unloadEventTicket);
 
             this.StopAllAudio();
         }

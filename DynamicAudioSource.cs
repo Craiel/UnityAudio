@@ -1,15 +1,13 @@
-﻿using IPoolable = Craiel.UnityEssentials.Contracts.IPoolable;
-using ResourceProvider = Craiel.UnityEssentials.Resource.ResourceProvider;
-
-namespace Craiel.UnityAudio
+﻿namespace Craiel.UnityAudio
 {
-    using Assets.Scripts.Craiel.Audio.Enums;
     using Data;
     using Enums;
     using States;
     using UnityEngine;
     using UnityEngine.Audio;
+    using UnityEssentials.Contracts;
     using UnityEssentials.FSM;
+    using UnityEssentials.Resource;
     using UnityGameData;
 
     public class DynamicAudioSource : MonoBehaviour, IPoolable

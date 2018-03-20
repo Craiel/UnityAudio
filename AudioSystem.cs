@@ -1,7 +1,6 @@
 ﻿namespace Craiel.UnityAudio
 {
     using System.Collections.Generic;
-    using Assets.Scripts.Craiel.GameData;
     using Data;
     using Enums;
     using NLog;

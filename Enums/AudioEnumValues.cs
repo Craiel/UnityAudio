@@ -1,9 +1,4 @@
-﻿using AudioChannel = Craiel.UnityAudio.Enums.AudioChannel;
-using AudioFlags = Craiel.UnityAudio.Enums.AudioFlags;
-using AudioPlayBehavior = Craiel.UnityAudio.Enums.AudioPlayBehavior;
-using DynamicAudioSourceState = Craiel.UnityAudio.Enums.DynamicAudioSourceState;
-
-namespace Assets.Scripts.Craiel.Audio.Enums
+﻿namespace Craiel.UnityAudio.Enums
 {
     using System;
     using System.Collections.Generic;
