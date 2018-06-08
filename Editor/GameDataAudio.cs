@@ -1,10 +1,10 @@
-﻿using AudioChannel = Craiel.UnityAudio.Enums.AudioChannel;
-using AudioPlayBehavior = Craiel.UnityAudio.Enums.AudioPlayBehavior;
+﻿using AudioChannel = Craiel.UnityAudio.Runtime.Enums.AudioChannel;
+using AudioPlayBehavior = Craiel.UnityAudio.Runtime.Enums.AudioPlayBehavior;
 
 namespace Craiel.UnityAudio.Editor
 {
     using System.Collections.Generic;
-    using Data;
+    using Runtime.Data;
     using UnityEngine;
     using UnityGameData.Editor.Builder;
     using UnityGameData.Editor.Common;

@@ -2,7 +2,7 @@
 {
     using UnityGameData.VFXShared;
 
-    public class AudioVFXSFXEditorComponent : VFXEdiorComponentBase
+    public class AudioVFXSFXEditorComponent : VFXEditorComponentBase
     {
     }
 }

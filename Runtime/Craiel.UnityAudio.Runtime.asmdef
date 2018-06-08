@@ -1,0 +1,9 @@
+{
+    "name": "Craiel.UnityAudio.Runtime",
+    "references": [
+        "Craiel.UnityGameData.Runtime",
+        "Craiel.UnityEssentials.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
