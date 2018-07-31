@@ -3,19 +3,15 @@
     using System.Collections.Generic;
     using Data;
     using Enums;
-    using NLog;
     using UnityEngine;
     using UnityEngine.Audio;
     using UnityEssentials.Runtime.Enums;
     using UnityEssentials.Runtime.Scene;
     using UnityEssentials.Runtime.Singletons;
-    using UnityGameData;
     using UnityGameData.Runtime;
 
     public class AudioSystem : UnitySingletonBehavior<AudioSystem>
     {
-        private static readonly NLog.Logger Logger = LogManager.GetCurrentClassLogger();
-
         private readonly DynamicAudioSourcePool dynamicAudioSourcePool;
         
         private readonly IDictionary<AudioTicket, DynamicAudioSource> activeSources;
@@ -54,7 +50,7 @@
             
             AudioAreaSystem.InstantiateAndInitialize();
 
-            Logger.Info("Audio Manager Initialized");
+            AudioCore.Logger.Info("Audio Manager Initialized");
         }
 
         public void LateUpdate()
@@ -76,7 +72,7 @@
                 AudioMixerGroup group = this.masterMixer.GetChannel(entry.Channel);
                 if (group == null)
                 {
-                    Logger.Warn("Invalid audio channel in clip {0}: {1}", entry.Id, entry.Channel);
+                    AudioCore.Logger.Warn("Invalid audio channel in clip {0}: {1}", entry.Id, entry.Channel);
                     return AudioTicket.Invalid;
                 }
 
@@ -104,7 +100,7 @@
                 AudioMixerGroup channel = this.masterMixer.GetChannel(entry.Channel);
                 if (channel == null)
                 {
-                    Logger.Warn("Invalid audio channel in clip {0}: {1}", entry.Id, entry.Channel);
+                    AudioCore.Logger.Warn("Invalid audio channel in clip {0}: {1}", entry.Id, entry.Channel);
                     return AudioTicket.Invalid;
                 }
 
@@ -133,7 +129,7 @@
                 AudioMixerGroup channel = this.masterMixer.GetChannel(entry.Channel);
                 if (channel == null)
                 {
-                    Logger.Warn("Invalid audio channel in clip {0}: {1}", entry.Id, entry.Channel);
+                    AudioCore.Logger.Warn("Invalid audio channel in clip {0}: {1}", entry.Id, entry.Channel);
                     return AudioTicket.Invalid;
                 }
 

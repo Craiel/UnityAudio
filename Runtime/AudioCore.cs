@@ -1,9 +1,9 @@
-﻿using ResourceKey = Craiel.UnityEssentials.Runtime.Resource.ResourceKey;
-
-namespace Craiel.UnityAudio.Runtime
+﻿namespace Craiel.UnityAudio.Runtime
 {
     using Contracts;
+    using NLog;
     using UnityEssentials.Runtime.Component;
+    using UnityEssentials.Runtime.Resource;
 
     public static class AudioCore
     {
@@ -20,5 +20,7 @@ namespace Craiel.UnityAudio.Runtime
         // -------------------------------------------------------------------
         public static ResourceKey MasterMixerResource { get; set; }
         public static ResourceKey DynamicAudioSourceResource { get; set; }
+
+        public static readonly Logger Logger = LogManager.GetLogger("CRAIEL_AUDIO");
     }
 }
