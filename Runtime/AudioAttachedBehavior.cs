@@ -18,8 +18,8 @@
 
         public virtual void Start()
         {
-            this.loadEventTicket = GameEvents.Instance.Subscribe<EventGameDataLoaded>(this.OnGameDataLoaded);
-            this.unloadEventTicket = GameEvents.Instance.Subscribe<EventGameDataUnloaded>(this.OnGameDataUnloaded);
+            GameEvents.Subscribe<EventGameDataLoaded>(this.OnGameDataLoaded, out this.loadEventTicket);
+            GameEvents.Subscribe<EventGameDataUnloaded>(this.OnGameDataUnloaded, out this.unloadEventTicket);
 
             if (GameRuntimeData.Instance.IsLoaded)
             {
@@ -32,8 +32,8 @@
 
         public virtual void OnDestroy()
         {
-            GameEvents.Instance.Unsubscribe(ref this.loadEventTicket);
-            GameEvents.Instance.Unsubscribe(ref this.unloadEventTicket);
+            GameEvents.Unsubscribe(ref this.loadEventTicket);
+            GameEvents.Unsubscribe(ref this.unloadEventTicket);
 
             this.StopAllAudio();
         }
@@ -56,13 +56,13 @@
         // -------------------------------------------------------------------
         // Private
         // -------------------------------------------------------------------
-        private void OnGameDataLoaded(EventGameDataLoaded eventdata)
+        private void OnGameDataLoaded(EventGameDataLoaded eventData)
         {
             this.SetupAudio();
             this.DataLoaded = true;
         }
 
-        private void OnGameDataUnloaded(EventGameDataUnloaded eventdata)
+        private void OnGameDataUnloaded(EventGameDataUnloaded eventData)
         {
             this.ReleaseAudio();
             this.DataLoaded = false;
