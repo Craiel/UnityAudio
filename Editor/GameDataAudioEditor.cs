@@ -1,9 +1,8 @@
-﻿using ReorderableListGUI = Craiel.UnityEssentials.Editor.ReorderableList.ReorderableListGUI;
-
-namespace Craiel.UnityAudio.Editor
+﻿namespace Craiel.UnityAudio.Editor
 {
     using UnityEditor;
     using UnityEngine;
+    using UnityEssentials.Editor.ReorderableList;
     using UnityEssentials.Editor.UserInterface;
     using UnityGameData.Editor.Common;
 
