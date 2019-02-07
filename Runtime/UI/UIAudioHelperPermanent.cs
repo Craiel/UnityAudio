@@ -7,8 +7,10 @@
         // -------------------------------------------------------------------
         // Public
         // -------------------------------------------------------------------
-        public void Update()
+        public override void Update()
         {
+            base.Update();
+            
             if (this.isStarted || !this.DataLoaded)
             {
                 return;

@@ -21,10 +21,8 @@
         [SerializeField]
         public GameDataRuntimeAudioRef HoverAudio;
 
-        public override void Start()
+        public void Start()
         {
-            base.Start();
-            
             this.Target.onClick.AddListener(this.OnTargetClick);
         }
 

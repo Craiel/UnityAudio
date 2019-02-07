@@ -20,6 +20,7 @@
         // -------------------------------------------------------------------
         public static ResourceKey MasterMixerResource { get; set; }
         public static ResourceKey DynamicAudioSourceResource { get; set; }
+        public static ResourceKey AudioEventMappingResource { get; set; }
 
         public static readonly Logger Logger = LogManager.GetLogger("CRAIEL_AUDIO");
     }

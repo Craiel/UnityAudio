@@ -1,12 +1,11 @@
 ﻿namespace Craiel.UnityAudio.Runtime
 {
-    using UnityEngine;
     using UnityEssentials.Runtime.Event;
-    using UnityGameData;
+    using UnityEssentialsUI.Runtime;
     using UnityGameData.Runtime;
     using UnityGameData.Runtime.Events;
 
-    public abstract class AudioAttachedBehavior : MonoBehaviour
+    public abstract class AudioAttachedBehavior : UIEngineBehavior
     {
         private BaseEventSubscriptionTicket loadEventTicket;
         private BaseEventSubscriptionTicket unloadEventTicket;
@@ -16,8 +15,25 @@
         // -------------------------------------------------------------------
         public bool DataLoaded { get; private set; }
 
-        public virtual void Start()
+        public override void OnDestroy()
         {
+            GameEvents.Unsubscribe(ref this.loadEventTicket);
+            GameEvents.Unsubscribe(ref this.unloadEventTicket);
+
+            this.StopAllAudio();
+            
+            base.OnDestroy();
+        }
+
+        public abstract void StopAllAudio();
+
+        // -------------------------------------------------------------------
+        // Protected
+        // -------------------------------------------------------------------
+        protected override void Initialize()
+        {
+            base.Initialize();
+            
             GameEvents.Subscribe<EventGameDataLoaded>(this.OnGameDataLoaded, out this.loadEventTicket);
             GameEvents.Subscribe<EventGameDataUnloaded>(this.OnGameDataUnloaded, out this.unloadEventTicket);
 
@@ -29,20 +45,7 @@
                 this.DataLoaded = true;
             }
         }
-
-        public virtual void OnDestroy()
-        {
-            GameEvents.Unsubscribe(ref this.loadEventTicket);
-            GameEvents.Unsubscribe(ref this.unloadEventTicket);
-
-            this.StopAllAudio();
-        }
-
-        public abstract void StopAllAudio();
-
-        // -------------------------------------------------------------------
-        // Protected
-        // -------------------------------------------------------------------
+        
         protected virtual void SetupAudio()
         {
             this.StopAllAudio();

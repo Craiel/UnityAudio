@@ -1,6 +1,4 @@
-﻿using ICraielComponentConfig = Craiel.UnityEssentials.Runtime.Contracts.ICraielComponentConfig;
-
-namespace Craiel.UnityAudio.Runtime.Contracts
+﻿namespace Craiel.UnityAudio.Runtime.Contracts
 {
     using UnityEssentials.Runtime.Contracts;
 

@@ -16,6 +16,8 @@
         public static readonly IList<AudioPlayBehavior> AudioPlayBehaviorValues = Enum.GetValues(typeof(AudioPlayBehavior)).Cast<AudioPlayBehavior>().ToList();
 
         public static readonly IList<DynamicAudioSourceState> DynamicAudioSourceStateValues = Enum.GetValues(typeof(DynamicAudioSourceState)).Cast<DynamicAudioSourceState>().ToList();
+        
+        public static readonly IList<AudioEvent> AudioEventValues = Enum.GetValues(typeof(AudioEvent)).Cast<AudioEvent>().ToList();
 
     }
 }
