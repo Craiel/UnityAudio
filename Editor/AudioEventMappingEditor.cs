@@ -10,11 +10,30 @@ namespace Craiel.UnityAudio.Editor
     [CustomEditor(typeof(AudioEventMapping))]
     public class AudioEventMappingEditor : Editor
     {
+        private static readonly GameDataRefVirtualHolder[] refHolders;
+        private static readonly SerializedObject[] refHolderObjects;
+
+        private static Object activeTarget;
+        
+        // -------------------------------------------------------------------
+        // Constructor
+        // -------------------------------------------------------------------
+        static AudioEventMappingEditor()
+        {
+            refHolders = new GameDataRefVirtualHolder[AudioEnumValues.AudioEventValues.Count];
+            refHolderObjects = new SerializedObject[AudioEnumValues.AudioEventValues.Count];
+        }
+        
         // -------------------------------------------------------------------
         // Public
         // -------------------------------------------------------------------
         public override void OnInspectorGUI()
         {
+            if (this.target != activeTarget)
+            {
+                this.Initialize();
+            }
+            
             this.serializedObject.Update();
             this.Draw();
             this.serializedObject.ApplyModifiedProperties();
@@ -23,6 +42,28 @@ namespace Craiel.UnityAudio.Editor
         // -------------------------------------------------------------------
         // Private
         // -------------------------------------------------------------------
+        private void Initialize()
+        {
+            SerializedProperty mappingProperty = this.serializedObject.FindProperty<AudioEventMapping>(x => x.Mapping);
+            mappingProperty.arraySize = AudioEnumValues.AudioEventValues.Count;
+
+            for (var i = 0; i < refHolders.Length; i++)
+            {
+                SerializedProperty element = mappingProperty.GetArrayElementAtIndex(i);
+                
+                refHolders[i] = CreateInstance<GameDataRefVirtualHolder>();
+                refHolders[i].Ref = new GameDataAudioRef
+                {
+                    RefGuid = element.stringValue
+                };
+                
+                refHolders[i].TypeFilter = typeof(GameDataAudio).Name;
+                refHolderObjects[i] = new SerializedObject(refHolders[i]);
+            }
+
+            activeTarget = this.target;
+        }
+        
         private void Draw()
         {
             SerializedProperty mappingProperty = this.serializedObject.FindProperty<AudioEventMapping>(x => x.Mapping);
@@ -38,19 +79,14 @@ namespace Craiel.UnityAudio.Editor
                     continue;
                 }
                 
-                var fakeRefHolder = CreateInstance<GameDataRefVirtualHolder>();
-                var fakeRef = new GameDataAudioRef
-                {
-                    RefGuid = element.stringValue
-                };
-
-                fakeRefHolder.Ref = fakeRef;
-                
-                var fakeRefObj = new SerializedObject(fakeRefHolder);
-                var prop = fakeRefObj.FindProperty<GameDataRefVirtualHolder>(x => x.Ref);
+                var prop = refHolderObjects[i].FindProperty<GameDataRefVirtualHolder>(x => x.Ref);
                 EditorGUILayout.PropertyField(prop, new GUIContent(eventValue.ToString()));
 
-                element.stringValue = fakeRef.RefGuid;
+                if (refHolders[i].Ref.RefGuid != element.stringValue)
+                {
+                    element.stringValue = refHolders[i].Ref.RefGuid;
+                    EditorUtility.SetDirty(this.target);
+                }
             }
         }
     }

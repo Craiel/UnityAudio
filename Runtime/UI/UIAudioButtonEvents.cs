@@ -5,7 +5,7 @@ namespace Craiel.UnityAudio.Runtime.UI
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
 
-    public class UIAudioButtonEvents : MonoBehaviour, IPointerEnterHandler
+    public class UIAudioButtonEvents : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     {
         private static readonly AudioPlayParameters PlayParameters = new AudioPlayParameters { UseRandomClip = true };
 
@@ -64,7 +64,7 @@ namespace Craiel.UnityAudio.Runtime.UI
             AudioSystem.Instance.PlayAudioEventManaged(AudioEvent.ButtonHover, PlayParameters);
         }
 
-        public void OnSelect()
+        public void OnSelect(BaseEventData eventData)
         {
             if (!this.EnableSelect 
                 || this.target == null 
@@ -96,7 +96,5 @@ namespace Craiel.UnityAudio.Runtime.UI
                 AudioSystem.Instance.PlayAudioEventManaged(AudioEvent.ButtonClickNegative, PlayParameters);
             }
         }
-
-        
     }
 }
