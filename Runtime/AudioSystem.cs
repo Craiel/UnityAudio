@@ -5,6 +5,7 @@
     using Enums;
     using UnityEngine;
     using UnityEngine.Audio;
+    using UnityEssentials.Runtime.EngineCore;
     using UnityEssentials.Runtime.Enums;
     using UnityEssentials.Runtime.Resource;
     using UnityEssentials.Runtime.Scene;
@@ -17,12 +18,9 @@
         
         private readonly DynamicAudioSourcePool dynamicAudioSourcePool;
         
-        private readonly IDictionary<AudioTicket, DynamicAudioSource> activeSources;
+        private readonly TicketProvider<AudioTicket, DynamicAudioSource> activeAudio;
         
         private readonly IDictionary<GameDataId, IList<AudioTicket>> sourcesByDataMap;
-        
-        private readonly IList<AudioTicket> managedAudioTickets;
-        private readonly IList<AudioTicket> ticketTempList;
         
         private AudioMixerController masterMixer;
 
@@ -34,10 +32,10 @@
         public AudioSystem()
         {
             this.dynamicAudioSourcePool = new DynamicAudioSourcePool();
-            this.activeSources = new Dictionary<AudioTicket, DynamicAudioSource>();
             this.sourcesByDataMap = new Dictionary<GameDataId, IList<AudioTicket>>();
-            this.managedAudioTickets = new List<AudioTicket>();
-            this.ticketTempList = new List<AudioTicket>();
+            
+            this.activeAudio = new TicketProvider<AudioTicket, DynamicAudioSource>();
+            this.activeAudio.EnableManagedTickets(this.IsFinished, this.Stop);
         }
 
         // -------------------------------------------------------------------
@@ -67,15 +65,14 @@
 
         public void LateUpdate()
         {
-            this.UpdateManagedTickets();
+            this.activeAudio.Update();
             
             this.dynamicAudioSourcePool.Update();
         }
         
         public bool IsFinished(AudioTicket ticket)
         {
-            DynamicAudioSource source;
-            if (this.activeSources.TryGetValue(ticket, out source))
+            if (this.activeAudio.TryGet(ticket, out DynamicAudioSource source))
             {
                 return !source.IsActive;
             }
@@ -177,9 +174,9 @@
         public void PlayAudioEventManaged(AudioEvent eventType, AudioPlayParameters parameters)
         {
             AudioTicket ticket = this.PlayAudioEvent(eventType);
-            if (ticket != null)
+            if (ticket != AudioTicket.Invalid)
             {
-                this.managedAudioTickets.Add(ticket);
+                this.activeAudio.Manage(ticket);
             }
         }
         
@@ -209,8 +206,7 @@
 
         public void Stop(ref AudioTicket ticket)
         {
-            DynamicAudioSource source;
-            if (this.activeSources.TryGetValue(ticket, out source))
+            if (this.activeAudio.TryGet(ticket, out DynamicAudioSource source))
             {
                 source.Stop();
             }
@@ -220,8 +216,7 @@
 
         public void StopByDataId(GameDataId id)
         {
-            IList<AudioTicket> tickets;
-            if (this.sourcesByDataMap.TryGetValue(id, out tickets))
+            if (this.sourcesByDataMap.TryGetValue(id, out IList<AudioTicket> tickets))
             {
                 for (var i = 0; i < tickets.Count; i++)
                 {
@@ -237,27 +232,6 @@
         // -------------------------------------------------------------------
         // Private
         // -------------------------------------------------------------------
-        private void UpdateManagedTickets()
-        {
-            this.ticketTempList.Clear();
-            for (var i = 0; i < this.managedAudioTickets.Count; i++)
-            {
-                AudioTicket ticket = this.managedAudioTickets[i];
-                if (this.IsFinished(ticket))
-                {
-                    this.ticketTempList.Add(ticket);
-                    this.Stop(ref ticket);
-                }
-            }
-
-            for (var i = 0; i < this.ticketTempList.Count; i++)
-            {
-                this.managedAudioTickets.Remove(this.ticketTempList[i]);
-            }
-
-            this.ticketTempList.Clear();
-        }
-        
         private DynamicAudioSource PrepareAudioSource(RuntimeAudioData entry)
         {
             if ((entry.Flags & AudioFlags.Unique) != 0)
@@ -276,7 +250,7 @@
 
         private void RegisterSource(AudioTicket ticket, DynamicAudioSource source)
         {
-            this.activeSources.Add(ticket, source);
+            this.activeAudio.Register(ticket, source);
 
             IList<AudioTicket> ticketList;
             if (!this.sourcesByDataMap.TryGetValue(source.ActiveId, out ticketList))
@@ -293,7 +267,8 @@
             IList<AudioTicket> ticketList;
             if (this.sourcesByDataMap.TryGetValue(source.ActiveId, out ticketList))
             {
-                this.activeSources.Remove(source.Ticket);
+                this.activeAudio.Unregister(source.Ticket);
+                
                 ticketList.Remove(source.Ticket);
                 if (ticketList.Count == 0)
                 {
