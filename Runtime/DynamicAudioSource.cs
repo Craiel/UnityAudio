@@ -6,12 +6,13 @@
     using UnityEngine;
     using UnityEngine.Audio;
     using UnityEssentials.Runtime.Contracts;
+    using UnityEssentials.Runtime.EngineCore;
     using UnityEssentials.Runtime.FSM;
     using UnityEssentials.Runtime.Resource;
     using UnityGameData;
     using UnityGameData.Runtime;
 
-    public class DynamicAudioSource : MonoBehaviour, IPoolable
+    public class DynamicAudioSource : MonoBehaviour, IPoolable, ITicketData
     {
         private readonly EnumStateMachine<DynamicAudioSource, DynamicAudioSourceStateBase, DynamicAudioSourceState> state;
 
