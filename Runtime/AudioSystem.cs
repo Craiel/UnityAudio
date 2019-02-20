@@ -26,6 +26,8 @@
 
         private AudioEventMapping eventMapping;
         
+        private SceneObjectRoot audioPoolRoot;
+        
         // -------------------------------------------------------------------
         // Constructor
         // -------------------------------------------------------------------
@@ -44,6 +46,8 @@
         public override void Awake()
         {
             SceneObjectController.Instance.RegisterObjectAsRoot(SceneRootCategory.System, this.gameObject, true);
+            
+            this.audioPoolRoot = SceneObjectController.Instance.AcquireRoot(SceneRootCategory.Dynamic, "Audio", true);
 
             base.Awake();
         }
@@ -53,8 +57,8 @@
             base.Initialize();
 
             this.masterMixer = new AudioMixerController(AudioCore.MasterMixerResource);
-
-            this.dynamicAudioSourcePool.Initialize(AudioCore.DynamicAudioSourceResource, this.UpdateAudioSource);
+            
+            this.dynamicAudioSourcePool.Initialize(AudioCore.DynamicAudioSourceResource, this.UpdateAudioSource, this.audioPoolRoot.GetTransform());
 
             this.eventMapping = this.LoadEventMapping();
             

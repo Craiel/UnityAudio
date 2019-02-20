@@ -49,5 +49,10 @@
         {
             return new AudioTicket(nextId++);
         }
+
+        public override string ToString()
+        {
+            return string.Format("#Audio:{0}", this.Id);
+        }
     }
 }
