@@ -26,10 +26,8 @@
         // -------------------------------------------------------------------
         // Protected
         // -------------------------------------------------------------------
-        protected override void DrawFull()
+        protected override void DoDrawFull()
         {
-            base.DrawFull();
-
             this.DrawProperties();
         }
         

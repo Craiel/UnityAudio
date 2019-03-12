@@ -27,9 +27,12 @@ namespace Craiel.UnityAudio.Editor
         [HideInInspector]
         public List<GameResourceAudioClipRef> AudioClips;
 
-        public override void Validate(GameDataBuildValidationContext context)
+        // -------------------------------------------------------------------
+        // Protected
+        // -------------------------------------------------------------------
+        protected override void DoValidate(GameDataBuildValidationContext context)
         {
-            base.Validate(context);
+            base.DoValidate(context);
 
             if (this.AudioChannel == AudioChannel.Unknown)
             {
@@ -39,8 +42,10 @@ namespace Craiel.UnityAudio.Editor
             GameResourceRefBase.ValidateRefList(this, this, this.AudioClips, context);
         }
 
-        public override void Build(GameDataBuildContext context)
+        protected override void DoBuild(GameDataBuildContext context)
         {
+            base.DoBuild(context);
+            
             var runtime = new RuntimeAudioData
             {
                 Channel = this.AudioChannel,
