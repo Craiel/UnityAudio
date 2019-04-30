@@ -32,14 +32,7 @@
         public AudioMixerController(ResourceKey mixerKey)
             : this()
         {
-            using (var resource = ResourceProvider.Instance.AcquireOrLoadResource<AudioMixer>(mixerKey))
-            {
-                if (resource != null && resource.Data != null)
-                {
-                    this.mixer = resource.Data;
-                }
-            }
-
+            this.mixer = mixerKey.LoadManaged<AudioMixer>();
             if (this.mixer == null)
             {
                 throw new InvalidOperationException("Could not load mixer from Resource Key: " + mixerKey);

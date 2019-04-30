@@ -143,15 +143,7 @@
         // -------------------------------------------------------------------
         private AudioClip GetClip(RuntimeAudioData data, int index)
         {
-            using (var resource = ResourceProvider.Instance.AcquireOrLoadResource<AudioClip>(data.ClipKeys[index]))
-            {
-                if (resource != null && resource.Data != null)
-                {
-                    return resource.Data;
-                }
-            }
-
-            return null;
+            return data.ClipKeys[index].LoadManaged<AudioClip>();
         }
     }
 }

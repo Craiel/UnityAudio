@@ -296,13 +296,7 @@
         {
             if (AudioCore.AudioEventMappingResource != ResourceKey.Invalid)
             {
-                using (var eventDataResource = ResourceProvider.Instance.AcquireOrLoadResource<AudioEventMapping>(AudioCore.AudioEventMappingResource))
-                {
-                    if (eventDataResource.Data != null)
-                    {
-                        return eventDataResource.Data;
-                    }
-                }
+                return AudioCore.AudioEventMappingResource.LoadManaged<AudioEventMapping>();
             }
 
             return ScriptableObject.CreateInstance<AudioEventMapping>();
