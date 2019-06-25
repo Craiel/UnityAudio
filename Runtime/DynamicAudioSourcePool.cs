@@ -2,7 +2,7 @@
 {
     using UnityEssentials.Runtime.Pool;
 
-    public class DynamicAudioSourcePool : GameObjectPool<DynamicAudioSource>
+    public class DynamicAudioSourcePool : GameObjectBehaviourPool<DynamicAudioSource>
     {
     }
 }
