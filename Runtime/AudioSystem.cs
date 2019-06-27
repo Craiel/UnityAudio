@@ -18,7 +18,7 @@
         
         private readonly DynamicAudioSourcePool dynamicAudioSourcePool;
         
-        private readonly TicketProvider<AudioTicket, DynamicAudioSource> activeAudio;
+        private readonly TicketProviderManaged<AudioTicket, DynamicAudioSource> activeAudio;
         
         private readonly IDictionary<GameDataId, IList<AudioTicket>> sourcesByDataMap;
         
@@ -36,7 +36,7 @@
             this.dynamicAudioSourcePool = new DynamicAudioSourcePool();
             this.sourcesByDataMap = new Dictionary<GameDataId, IList<AudioTicket>>();
             
-            this.activeAudio = new TicketProvider<AudioTicket, DynamicAudioSource>();
+            this.activeAudio = new TicketProviderManaged<AudioTicket, DynamicAudioSource>();
             this.activeAudio.EnableManagedTickets(this.IsFinished, this.Stop);
         }
 
