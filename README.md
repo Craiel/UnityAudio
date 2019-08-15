@@ -32,6 +32,14 @@ Register in the IGameDataEditorConfig script:
 GameDataEditorWindow.AddContent<GameDataAudio>("Audio");
 ```
 
+To play audio call AudioSystem with the corresponding data id:
+
+```
+AudioSystem.Instance.Play(this.audioDataId);
+```
+
+There are several different functions to play audio depending on the situation as well as corresponding Stop functions.
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
