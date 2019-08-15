@@ -9,9 +9,9 @@ Add the package and dependencies to your Project Manifest.json:
 {
     "dependencies": {
     ...
-    "com.craiel.unity.vfx": "https://github.com/Craiel/UnityEssentials.git",
-    "com.craiel.unity.vfx": "https://github.com/Craiel/UnityGameData.git",
-    "com.craiel.unity.vfx": "https://github.com/Craiel/UnityAudio.git",
+    "com.craiel.unity.essentials": "https://github.com/Craiel/UnityEssentials.git",
+    "com.craiel.unity.gamedata": "https://github.com/Craiel/UnityGameData.git",
+    "com.craiel.unity.audio": "https://github.com/Craiel/UnityAudio.git",
     ...
   }
 }
@@ -23,6 +23,14 @@ Add the package and dependencies to your Project Manifest.json:
 - https://github.com/Craiel/UnityEssentials
 - https://github.com/Craiel/UnityGameData
 
+
+### Usage
+
+Register in the IGameDataEditorConfig script:
+
+```
+GameDataEditorWindow.AddContent<GameDataAudio>("Audio");
+```
 
 ## Contributing
 
