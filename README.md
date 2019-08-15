@@ -27,7 +27,7 @@ Add the package and dependencies to your Project Manifest.json:
 ### Configuration
 
 Before use the Audio System will have to be configured and integrated into GameData.
-To Configure the system add a class implementing IAudioConfig in the project:
+To Configure the system add a class implementing `IAudioConfig` in the project:
 
 ```
     [UsedImplicitly]
@@ -45,11 +45,11 @@ To Configure the system add a class implementing IAudioConfig in the project:
     }
 ```
 
-- DynamicAudioSource is a Prefab that contains the Audio Source object and the DynamicAudioSource MonoBehaviour
-- MasterMixer is the Unity MasterMixer to use
+- DynamicAudioSource is a Prefab that contains the Audio Source object and the `DynamicAudioSource` `MonoBehaviour`
+- MasterMixer is the Unity `MasterMixer` to use
 - AudioEventMapping is a Scriptable Object (Create -> Craiel -> Audio -> EventMapping) that maps audio events to audio game data entries
 
-To Register the Audio System with GameData add it to the IGameDataEditorConfig script:
+To Register the Audio System with GameData add it to the `IGameDataEditorConfig` script:
 
 ```
 GameDataEditorWindow.AddContent<GameDataAudio>("Audio");
@@ -57,7 +57,7 @@ GameDataEditorWindow.AddContent<GameDataAudio>("Audio");
 
 ### Usage
 
-To play audio call AudioSystem with the corresponding data id:
+To play audio call `AudioSystem` with the corresponding data id:
 
 ```
 AudioSystem.Instance.Play(this.audioDataId);
