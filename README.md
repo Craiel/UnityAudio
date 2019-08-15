@@ -1,4 +1,4 @@
-# Creaiel Unity Audio
+# Craiel Unity Audio
 
 Audio System using Craiel GameData with support for Localized and Attached Emitters, Audio Source Pooling, UI Audio Events, Fading and Multiple Clips in sequence or random.
 
