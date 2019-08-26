@@ -9,6 +9,8 @@ Add the package and dependencies to your Project Manifest.json:
 {
     "dependencies": {
     ...
+    "com.craiel.unity.essentials": "https://github.com/Craiel/UnityEssentials.git",
+    "com.craiel.unity.gamedata": "https://github.com/Craiel/UnityGameData.git",
     "com.craiel.unity.audio": "https://github.com/Craiel/UnityAudio.git",
     ...
   }
